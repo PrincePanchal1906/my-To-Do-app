@@ -13,10 +13,14 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    const API =
+      window.location.hostname === "localhost"
+        ? "http://localhost:5000"
+        : "https://my-to-do-app-mx82.onrender.com";
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${API}/api/auth/register`,
         { name, email, password },
         { withCredentials: true },
       );

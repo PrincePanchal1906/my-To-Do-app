@@ -56,11 +56,15 @@ const Dashboard = () => {
     setFormState({ title: "", group: selectedGroup, due: "", notes: "" });
     setEditTaskId(null);
   };
+  const API =
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://my-to-do-app-mx82.onrender.com";
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/api/tasks", {
+        const { data } = await axios.get(`${API}/api/tasks`, {
           withCredentials: true,
         });
 
@@ -75,11 +79,15 @@ const Dashboard = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const API =
+      window.location.hostname === "localhost"
+        ? "http://localhost:5000"
+        : "https://my-to-do-app-mx82.onrender.com";
     try {
       if (editTaskId) {
         // UPDATE
         const response = await axios.put(
-          `http://localhost:5000/api/tasks/${editTaskId}`,
+          `${API}/api/tasks/${editTaskId}`,
           formState,
           { withCredentials: true },
         );
@@ -89,13 +97,9 @@ const Dashboard = () => {
           current.map((task) => (task._id === editTaskId ? updatedTask : task)),
         );
       } else {
-        const response = await axios.post(
-          "http://localhost:5000/api/tasks",
-          formState,
-          {
-            withCredentials: true,
-          },
-        );
+        const response = await axios.post(`${API}/api/tasks`, formState, {
+          withCredentials: true,
+        });
 
         const newTask = response.data;
         setTasks((current) => [newTask, ...current]);
@@ -110,7 +114,7 @@ const Dashboard = () => {
   const toggleComplete = async (taskId) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/tasks/${taskId}/toggle`,
+        `${API}/api/tasks/${taskId}/toggle`,
         {},
         { withCredentials: true },
       );
@@ -128,7 +132,7 @@ const Dashboard = () => {
   const deleteTask = async (taskId) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/tasks/${taskId}/delete`,
+        `${API}/api/tasks/${taskId}/delete`,
         {},
         {
           withCredentials: true,
