@@ -1,15 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
 import { LogOut, CheckSquare } from "lucide-react";
 import { AuthContext } from "../../context/auth";
+import axios from "axios";
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
   const { setUser } = useContext(AuthContext);
-
-  const handleLogout = () => {
-    setUser(null);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    const API =
+      window.location.hostname === "localhost"
+        ? "http://localhost:5000"
+        : "https://my-to-do-app-mx82.onrender.com";
+    const res = await axios.post(
+      `${API}/api/auth/logout`,
+      {},
+      { withCredentials: true },
+    );
+    if (res.status === 200) {
+      setUser(null);
+      navigate("/login");
+    }
   };
   return (
     <nav className="navbar">

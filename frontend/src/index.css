@@ -173,6 +173,7 @@ button {
 .auth-container {
   display: flex;
   align-items: center;
+  height: 100vh;
   justify-content: center;
   width: 100%;
 }

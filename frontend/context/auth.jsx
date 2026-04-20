@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import Navbar from "../src/components/Navbar";
 
 export const AuthContext = createContext(null);
 
@@ -26,8 +27,10 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {children}
-    </AuthContext.Provider>
+    <div>
+      <AuthContext.Provider value={{ user, setUser }}>
+        {children}
+      </AuthContext.Provider>
+    </div>
   );
 };
