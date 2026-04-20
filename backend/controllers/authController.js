@@ -26,6 +26,8 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+    const isProduction = process.env.NODE_ENV === "production";
+
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -44,8 +46,8 @@ export const loginUser = async (req, res) => {
    process.env.JWT_SECRET,
    {expiresIn:'1d'})
    res.cookie("token",token,{
-    httpOnly:true,sameSite:"none",
-    secure: true,
+    httpOnly:true,sameSite: isProduction ? "none" : "lax",
+    secure: isProduction,
 
    })
     res.json({message:"Login successful",token,user});

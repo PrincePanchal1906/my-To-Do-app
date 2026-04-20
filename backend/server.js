@@ -12,9 +12,13 @@ connectDB();
 
 const app = express();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 app.use(cookieParser());
 app.use(cors({
-    origin: ['https://my-to-do-app-omega.vercel.app', 'http://localhost:5173'],
+    origin: isProduction
+        ? ['https://my-to-do-app-omega.vercel.app']
+        : ['http://localhost:5174'],
     credentials: true,
 }));
 app.use(express.json());
