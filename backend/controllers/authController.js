@@ -49,7 +49,6 @@ export const loginUser = async (req, res) => {
     httpOnly:true,sameSite: isProduction ? "none" : "lax",
     secure: isProduction,
     path="/",
-
    })
     res.json({message:"Login successful",token,user});
   } catch (error) {

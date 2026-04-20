@@ -7,13 +7,13 @@ const router = express.Router();
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/logout', (req, res) => {
-    res.Cookie("token", {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  path: "/", 
-    expires: new Date(0) 
-});
+  res.cookie("token", "", {
+    httpOnly: true,
+    sameSite: isProduction ? "none" : "lax",
+    secure: isProduction,
+    path: "/",
+    expires: new Date(0),  
+  });
     res.status(200).json({ message: "Logged out successfully" });
 });
 router.get("/me",authMiddleware ,(req, res) => {
