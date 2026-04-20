@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
       ? "http://localhost:5000"
       : "https://my-to-do-app-mx82.onrender.com";
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -20,6 +21,8 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
       } catch (error) {
         setUser(null);
+      } finally {
+        setLoading(false);
       }
     };
 
