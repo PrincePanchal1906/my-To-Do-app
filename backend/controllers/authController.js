@@ -48,7 +48,7 @@ export const loginUser = async (req, res) => {
    res.cookie("token",token,{
     httpOnly:true,sameSite: isProduction ? "none" : "lax",
     secure: isProduction,
-    path="/",
+    path:"/",
    })
     res.json({message:"Login successful",token,user});
   } catch (error) {

@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(cors({
     origin: isProduction
         ? ['https://my-to-do-app-omega.vercel.app']
-        : ['http://localhost:5174'],
+        : ['http://localhost:5173'],
     credentials: true,
 }));
 app.use(express.json());

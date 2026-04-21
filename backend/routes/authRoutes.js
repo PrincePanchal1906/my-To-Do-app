@@ -3,6 +3,7 @@ import { registerUser, loginUser } from '../controllers/authController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
+const isProduction = process.env.NODE_ENV === "production";
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
@@ -12,7 +13,6 @@ router.post('/logout', (req, res) => {
     sameSite: isProduction ? "none" : "lax",
     secure: isProduction,
     path: "/",
-    domain:"my-to-do-app-mx82.onrender.com",
     expires: new Date(0),  
   });
     res.status(200).json({ message: "Logged out successfully" });

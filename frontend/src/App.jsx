@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 function App() {
   const { user, loading } = useContext(AuthContext);
