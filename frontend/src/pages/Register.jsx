@@ -22,7 +22,7 @@ const Register = () => {
       const { data } = await axios.post(
         `${API}/api/auth/register`,
         { name, email, password },
-        { withCredentials: true },
+        { axios.default.withCredentials: true },
       );
       setUser(data.user);
       navigate("/dashboard");
